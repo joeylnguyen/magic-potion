@@ -1,0 +1,16 @@
+{
+  "name": "curology-magic-potion",
+  "version": "1.0.0",
+  "description": "Backend server for magic potion launch site.",
+  "main": "index.js",
+  "scripts": {
+    "start-server": "nodemon ./server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joey Nguyen",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6"
+  }
+}
