@@ -53,33 +53,9 @@ const useForm = (callback) => {
     callback();
   };
 
-  const handleAddressOnBlur = (event) => {
-    const { name, value } = event.target;
-    setValues({
-      ...values,
-      address: {
-        ...values.address,
-        [name]: value,
-      },
-    });
-  };
-
-  const handleAddressChange = (event) => {
-    const { name, value } = event.target;
-    setValues({
-      ...values,
-      address: {
-        ...values.address,
-        [name]: value,
-      },
-    });
-  };
-
   return {
     handleChange,
-    handleAddressChange,
     handleSubmit,
-    handleAddressOnBlur,
     values,
   };
 };
