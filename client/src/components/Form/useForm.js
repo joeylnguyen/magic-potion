@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const useForm = (callback) => {
+const useForm = (callback, validate) => {
   const [values, setValues] = useState({
     firstName: '',
     lastName: '',
@@ -13,13 +13,17 @@ const useForm = (callback) => {
     },
     email: '',
     phone: '',
-    quantity: 0,
+    quantity: 1,
     total: '',
     payment: {
       ccNum: '',
       exp: '',
     },
   });
+
+  const [errors, setErrors] = useState({});
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -49,14 +53,21 @@ const useForm = (callback) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // TODO: handle errors before submitting
-    callback();
+    setErrors(validate(values));
+    setIsSubmitting(true);
   };
+
+  useEffect(() => {
+    if (!Object.keys(errors) && isSubmitting) {
+      callback();
+    }
+  }, [errors]);
 
   return {
     handleChange,
     handleSubmit,
     values,
+    errors,
   };
 };
 
