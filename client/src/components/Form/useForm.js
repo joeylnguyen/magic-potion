@@ -26,9 +26,12 @@ const useForm = (callback, validate) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useMemo(() => {
+    const quantity = parseInt(values.quantity, 10);
+    const total = `${quantity * 49.99}`;
     setValues({
       ...values,
-      total: `${49.99 * values.quantity}`,
+      quantity,
+      total,
     });
   }, [values.quantity]);
 
