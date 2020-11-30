@@ -70,7 +70,7 @@ const validateForm = (values) => {
 
   if (!values.phone) {
     errors.phone = 'Phone number is required';
-  } else if (!values.phone.match(/\d/g).length === 10) {
+  } else if (!/^[2-9]{1}[0-9]{9}$/.test(values.phone)) {
     errors.phone = 'Please enter a valid 10-digit phone number';
   }
 
@@ -90,7 +90,7 @@ const validateForm = (values) => {
 
   if (!exp) {
     errors.exp = 'Credit card expiration date is required';
-  } else if (!exp.match(/(0[1-9]|1[0-2])[/][0-9]{2}/ || exp.length > 5)) {
+  } else if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(exp)) {
     errors.exp = 'Invalid credit card expiration date format';
   } else if (validateCardExpiration(exp)) {
     errors.exp = 'Credit card is expired';

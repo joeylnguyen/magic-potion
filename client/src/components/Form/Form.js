@@ -24,7 +24,9 @@ const Form = () => {
               onChange={handleChange}
             />
           </label>
-          {errors.firstName && <p>{errors.firstName}</p>}
+          {errors.firstName && (
+            <p data-testid="firstName-error">{errors.firstName}</p>
+          )}
         </div>
         <div>
           <label htmlFor="lastName">
@@ -36,7 +38,9 @@ const Form = () => {
               onChange={handleChange}
             />
           </label>
-          {errors.lastName && <p>{errors.lastName}</p>}
+          {errors.lastName && (
+            <p data-testid="lastName-error">{errors.lastName}</p>
+          )}
         </div>
         <div>
           <label htmlFor="street1">
@@ -48,7 +52,9 @@ const Form = () => {
               onChange={handleChange}
             />
           </label>
-          {errors.street1 && <p>{errors.street1}</p>}
+          {errors.street1 && (
+            <p data-testid="street1-error">{errors.street1}</p>
+          )}
         </div>
         <label htmlFor="street2">
           Address Line 2
@@ -69,7 +75,7 @@ const Form = () => {
               onChange={handleChange}
             />
           </label>
-          {errors.city && <p>{errors.city}</p>}
+          {errors.city && <p data-testid="city-error">{errors.city}</p>}
         </div>
         <div>
           <label htmlFor="state">
@@ -94,7 +100,7 @@ const Form = () => {
               ))}
             </select>
           </label>
-          {errors.state && <p>{errors.state}</p>}
+          {errors.state && <p data-testid="state-error">{errors.state}</p>}
         </div>
         <div>
           <label htmlFor="zipCode">
@@ -106,7 +112,9 @@ const Form = () => {
               onChange={handleChange}
             />
           </label>
-          {errors.zipCode && <p>{errors.zipCode}</p>}
+          {errors.zipCode && (
+            <p data-testid="zipCode-error">{errors.zipCode}</p>
+          )}
         </div>
         <div>
           <label htmlFor="email">
@@ -119,7 +127,7 @@ const Form = () => {
               onChange={handleChange}
             />
           </label>
-          {errors.email && <p>{errors.email}</p>}
+          {errors.email && <p data-testid="email-error">{errors.email}</p>}
         </div>
         <div>
           <label htmlFor="phone">
@@ -131,7 +139,7 @@ const Form = () => {
               onChange={handleChange}
             />
           </label>
-          {errors.phone && <p>{errors.phone}</p>}
+          {errors.phone && <p data-testid="phone-error">{errors.phone}</p>}
         </div>
         <div>
           <label htmlFor="creditCardNumber">
@@ -143,7 +151,7 @@ const Form = () => {
               onChange={handleChange}
             />
           </label>
-          {errors.ccNum && <p>{errors.ccNum}</p>}
+          {errors.ccNum && <p data-testid="ccNum-error">{errors.ccNum}</p>}
         </div>
         <div>
           <label htmlFor="creditCardExp">
@@ -156,7 +164,7 @@ const Form = () => {
               placeholder="mm/yy"
             />
           </label>
-          {errors.exp && <p>{errors.exp}</p>}
+          {errors.exp && <p data-testid="exp-error">{errors.exp}</p>}
         </div>
         <button type="submit">Submit</button>
       </div>
