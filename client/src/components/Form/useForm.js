@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 const useForm = (callback, validate) => {
   const [values, setValues] = useState({
@@ -24,6 +24,13 @@ const useForm = (callback, validate) => {
   const [errors, setErrors] = useState({});
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useMemo(() => {
+    setValues({
+      ...values,
+      total: `${49.99 * values.quantity}`,
+    });
+  }, [values.quantity]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -58,7 +65,7 @@ const useForm = (callback, validate) => {
   };
 
   useEffect(() => {
-    if (!Object.keys(errors) && isSubmitting) {
+    if (Object.keys(errors).length === 0 && isSubmitting) {
       callback();
     }
   }, [errors]);

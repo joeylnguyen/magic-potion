@@ -13,6 +13,6 @@
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "prettier/prettier": ["error"],
-    "no-use-before-define": ["error", { "variables": false }]
+    "no-use-before-define": ["error", { "variables": false, "functions": false, "classes": false}]
   }
 }

@@ -1,13 +1,10 @@
-import React from 'react';
-import useForm from './useForm';
+import React, { useContext } from 'react';
 import states from './states';
-import validateForm from './validateForm';
+import FormContext from '../../FormContext';
 
 const Form = () => {
-  const submit = () => console.log('Submitted!', values);
-  const { values, handleChange, handleSubmit, errors } = useForm(
-    submit,
-    validateForm
+  const { values, handleChange, handleSubmit, errors } = useContext(
+    FormContext
   );
 
   return (
