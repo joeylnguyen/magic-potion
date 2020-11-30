@@ -96,6 +96,10 @@ const validateForm = (values) => {
     errors.exp = 'Credit card is expired';
   }
 
+  if (values.quantity > 3) {
+    errors.quantity = 'Max value for this item is 3';
+  }
+
   return errors;
 };
 
