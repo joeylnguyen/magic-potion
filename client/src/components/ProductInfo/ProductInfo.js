@@ -1,43 +1,20 @@
-import React, { useContext } from 'react';
-import FormContext from '../../FormContext';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const ProductInfo = () => {
-  const submit = () => console.log(values, errors);
-
-  const { values, handleChange, errors } = useContext(FormContext);
-
+const ProductInfo = ({ productName, price, description }) => {
   return (
     <div>
-      <h1>Magic Potion</h1>
-      <h2>$49.99</h2>
-      <p>A magical potion that will cure all of your skincare problems.</p>
-      <div>
-        Quantity
-        <select
-          data-testid="select-quantity"
-          id="quantity"
-          name="quantity"
-          value={values.quantity}
-          onBlur={submit}
-          onChange={handleChange}
-        >
-          <option key="1" value="1">
-            1
-          </option>
-          <option key="2" value="2">
-            2
-          </option>
-          <option key="3" value="3">
-            3
-          </option>
-        </select>
-      </div>
-      <div>{`${values.quantity} x Magic Potion`}</div>
-      <div name="total" id="total" value={values.total} onChange={handleChange}>
-        {`Total = $${values.total}`}
-      </div>
+      <h1>{productName}</h1>
+      <h2>{`$${price}`}</h2>
+      <p>{description}</p>
     </div>
   );
+};
+
+ProductInfo.propTypes = {
+  productName: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  description: PropTypes.string.isRequired,
 };
 
 export default ProductInfo;

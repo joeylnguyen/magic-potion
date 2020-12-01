@@ -1,14 +1,10 @@
-import React, { useContext } from 'react';
-import states from './states';
-import FormContext from '../../FormContext';
+import React from 'react';
+import PropTypes from 'prop-types';
+import states from './utils/states';
 
-const Form = () => {
-  const { values, handleChange, handleSubmit, errors } = useContext(
-    FormContext
-  );
-
+const BillingForm = ({ values, handleChange, errors }) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <h1>Contact | Billing Information</h1>
       <div>
         <div>
@@ -45,7 +41,7 @@ const Form = () => {
             <input
               id="street1"
               name="street1"
-              value={values.street1}
+              value={values.address.street1}
               onChange={handleChange}
             />
           </label>
@@ -58,7 +54,7 @@ const Form = () => {
           <input
             id="street2"
             name="street2"
-            value={values.street2}
+            value={values.address.street2}
             onChange={handleChange}
           />
         </label>
@@ -68,7 +64,7 @@ const Form = () => {
             <input
               id="city"
               name="city"
-              value={values.city}
+              value={values.address.city}
               onChange={handleChange}
             />
           </label>
@@ -81,7 +77,7 @@ const Form = () => {
               data-testid="select-state"
               id="state"
               name="state"
-              value={values.state}
+              value={values.address.state}
               onBlur={handleChange}
               onChange={handleChange}
             >
@@ -105,7 +101,7 @@ const Form = () => {
             <input
               id="zipCode"
               name="zipCode"
-              value={values.zipCode}
+              value={values.address.zipCode}
               onChange={handleChange}
             />
           </label>
@@ -144,7 +140,7 @@ const Form = () => {
             <input
               id="creditCardNumber"
               name="ccNum"
-              value={values.ccNum}
+              value={values.payment.ccNum}
               onChange={handleChange}
             />
           </label>
@@ -156,17 +152,26 @@ const Form = () => {
             <input
               id="creditCardExp"
               name="exp"
-              value={values.exp}
+              value={values.payment.exp}
               onChange={handleChange}
               placeholder="mm/yy"
             />
           </label>
           {errors.exp && <p data-testid="exp-error">{errors.exp}</p>}
         </div>
-        <button type="submit">Submit</button>
       </div>
     </form>
   );
 };
 
-export default Form;
+BillingForm.propTypes = {
+  values: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+  ]).isRequired,
+  errors: PropTypes.objectOf(PropTypes.string).isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
+
+export default BillingForm;

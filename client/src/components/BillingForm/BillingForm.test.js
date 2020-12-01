@@ -1,10 +1,33 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Form from '../Form';
+import BillingForm from './BillingForm';
+
+/* MOCKS */
+const mockValues = {
+  firstName: '',
+  lastName: '',
+  address: {
+    street1: '',
+    street2: '',
+    city: '',
+    state: '',
+    zipCode: '',
+  },
+  email: '',
+  phone: '',
+  quantity: 1,
+  total: '',
+  payment: {
+    ccNum: '',
+    exp: '',
+  },
+};
 
 /* TEST FUNCTIONS */
 const testEmptyInput = (labelText, inputValue, message) => {
-  const { getByText, getByLabelText } = render(<Form />);
+  const { getByText, getByLabelText } = render(
+    <BillingForm values={mockValues} errors={{ labelText: '' }} />
+  );
 
   const input = getByLabelText(labelText);
   fireEvent.change(input, { target: { value: inputValue } });
@@ -13,7 +36,9 @@ const testEmptyInput = (labelText, inputValue, message) => {
 };
 
 const testCorrectInput = (labelText, inputValue, testId) => {
-  const { getByText, getByLabelText, queryByTestId } = render(<Form />);
+  const { getByText, getByLabelText, queryByTestId } = render(
+    <BillingForm values={mockValues} errors={{ labelText: '' }} />
+  );
   const input = getByLabelText(labelText);
 
   fireEvent.change(input, { target: { value: inputValue } });
@@ -24,7 +49,7 @@ const testCorrectInput = (labelText, inputValue, testId) => {
 
 /* TESTS */
 it('renders the correct content', () => {
-  const { getByText, getByLabelText } = render(<Form />);
+  const { getByText, getByLabelText } = render(<BillingForm />);
 
   // Header content
   getByText('Contact | Billing Information');
@@ -110,7 +135,7 @@ describe('Error handling', () => {
   // TODO: Not working properly. Get this to fail!
   describe('State errors', () => {
     it('renders correct error message for empty input', () => {
-      const { getByText, getByTestId, getAllByTestId } = render(<Form />);
+      const { getByText, getByTestId } = render(<BillingForm />);
 
       const select = getByTestId('select-state');
       fireEvent.select(select, { target: { value: 'CA' } });
@@ -138,7 +163,7 @@ describe('Error handling', () => {
     });
 
     it('renders correct error message for invalid input', () => {
-      const { getByText, getByLabelText } = render(<Form />);
+      const { getByText, getByLabelText } = render(<BillingForm />);
 
       const input = getByLabelText('Zip Code');
       fireEvent.change(input, { target: { value: '9021 0' } });
@@ -162,7 +187,7 @@ describe('Error handling', () => {
     });
 
     it('renders correct error message for invalid input', () => {
-      const { getByText, getByLabelText } = render(<Form />);
+      const { getByText, getByLabelText } = render(<BillingForm />);
 
       const input = getByLabelText('Email Address');
       fireEvent.change(input, { target: { value: 'test!/test.com ' } });
@@ -186,7 +211,7 @@ describe('Error handling', () => {
     });
 
     it('renders correct error message for invalid input', () => {
-      const { getByText, getByLabelText } = render(<Form />);
+      const { getByText, getByLabelText } = render(<BillingForm />);
 
       const input = getByLabelText('Phone Number');
       fireEvent.change(input, { target: { value: '310012345' } });
@@ -210,7 +235,7 @@ describe('Error handling', () => {
     });
 
     it('renders correct error message for invalid input', () => {
-      const { getByText, getByLabelText } = render(<Form />);
+      const { getByText, getByLabelText } = render(<BillingForm />);
       const input = getByLabelText('Credit Card Number');
 
       fireEvent.change(input, { target: { value: '6011000990139424d' } });
@@ -234,7 +259,7 @@ describe('Error handling', () => {
     });
 
     it('renders correct error message for invalid input', () => {
-      const { getByText, getByLabelText } = render(<Form />);
+      const { getByText, getByLabelText } = render(<BillingForm />);
       const input = getByLabelText('Card Expiration');
 
       fireEvent.change(input, { target: { value: '08/233' } });
@@ -251,7 +276,7 @@ describe('Error handling', () => {
     });
 
     it('renders correct error message for expired card', () => {
-      const { getByText, getByLabelText } = render(<Form />);
+      const { getByText, getByLabelText } = render(<BillingForm />);
       const input = getByLabelText('Card Expiration');
 
       fireEvent.change(input, { target: { value: '01/19' } });

@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
+import validateForm from '../utils/validateForm';
 
-const useForm = (callback, validate) => {
+const useForm = (callback) => {
   const [values, setValues] = useState({
     firstName: '',
     lastName: '',
@@ -63,7 +64,7 @@ const useForm = (callback, validate) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setErrors(validate(values));
+    setErrors(validateForm(values));
     setIsSubmitting(true);
   };
 
