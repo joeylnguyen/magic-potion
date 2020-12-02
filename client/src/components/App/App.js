@@ -23,10 +23,7 @@ const App = () => {
   const submitData = async (values) => {
     try {
       setIsLoading(true);
-      const result = await axios.post(
-        'http://localhost:4000/api/magic',
-        values
-      );
+      const result = await axios.post('/api/magic', values);
       const { id, message } = result.data;
       setSuccessMsg(message);
       setOrderId(id);
