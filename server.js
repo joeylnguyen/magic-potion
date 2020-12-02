@@ -1,9 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 const pool = require('./database');
 const { userValidationRules, validate } = require('./validator');
 const models = require('./models');
+
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -15,6 +17,10 @@ app.use((req, res, next) => {
   console.log(`Incoming ${req.method}`);
   next();
 });
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static)path.join(__dirname, 'client/build')
+}
 
 app.get('/', (req, res) => res.send('Hello!'));
 
@@ -149,6 +155,10 @@ app.delete('/api/magic/:id', async (req, res) => {
   } catch (err) {
     res.json({ error: err.message });
   }
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
 
 app.listen(PORT, () => {

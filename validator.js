@@ -4,7 +4,7 @@ const {
   validateZipCode,
   validatePhoneNumber,
   validateCardExpirationFormat,
-} = require('../client/src/components/App/utils/validators');
+} = require('./client/src/components/App/utils/validators');
 
 const userValidationRules = () => {
   return [
