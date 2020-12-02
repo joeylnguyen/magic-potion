@@ -3,10 +3,17 @@ import PropTypes from 'prop-types';
 
 const TotalPrice = ({ values, handleChange, name, price }) => {
   return (
-    <div>
-      <div>{`${values.quantity} x ${name}`}</div>
-      <div name="total" id="total" value={values.total} onChange={handleChange}>
-        {`Total = $${values.quantity * price}`}
+    <div className="lg:text-right space-y-4">
+      <div className="border border-t-0 border-indigo-900 border-opacity-25" />
+      <div className="lg:font-thin lg:text-4xl">{`${values.quantity} x ${name}`}</div>
+      <div
+        className="text-3xl font-thin"
+        name="total"
+        id="total"
+        value={values.total}
+        onChange={handleChange}
+      >
+        {`= $${values.quantity * price}`}
       </div>
     </div>
   );

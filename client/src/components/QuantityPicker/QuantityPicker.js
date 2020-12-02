@@ -5,15 +5,15 @@ const QuantityPicker = ({ values, handleChange, errors, max }) => {
   const qtyOptions = [];
   for (let i = 1; i <= max; i += 1) {
     qtyOptions.push(
-      <option key={i} value={i}>
+      <option className="flex-grow-0" key={i} value={i}>
         {i}
       </option>
     );
   }
 
   return (
-    <div>
-      Quantity
+    <div className="w-min text-2xl lg:flex lg:flex-col py-3 lg:text-right lg:justify-end">
+      Qty:
       <select
         data-testid="select-quantity"
         id="quantity"
@@ -21,6 +21,7 @@ const QuantityPicker = ({ values, handleChange, errors, max }) => {
         value={values.quantity}
         onBlur={handleChange}
         onChange={handleChange}
+        className="w-min flex-grow-0 text-xl lg:text-2xl mt-1 block border rounded-lg shadow-sm lg:shadow-md lg:ml-60 rounded transform transition duration-500 ease-in-out hover:-translate-y-1 hover:scale-110 hover:border-transparent hover:text-white hover:bg-indigo-900 hover:shadow-xl"
       >
         {qtyOptions}
       </select>
