@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import validateForm from '../utils/validateForm';
 
 const useForm = (callback) => {
-  const [values, setValues] = useState({
+  const initialValues = {
     firstName: '',
     lastName: '',
     address: {
@@ -20,18 +20,17 @@ const useForm = (callback) => {
       ccNum: '',
       exp: '',
     },
-  });
+  };
+  const [values, setValues] = useState(initialValues);
 
   const [errors, setErrors] = useState({});
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useMemo(() => {
-    const quantity = parseInt(values.quantity, 10);
-    const total = `${quantity * 49.99}`;
+    const total = `${values.quantity * 49.99}`;
     setValues({
       ...values,
-      quantity,
       total,
     });
   }, [values.quantity]);
@@ -68,15 +67,22 @@ const useForm = (callback) => {
     setIsSubmitting(true);
   };
 
+  const handleServerErrors = (errs) => {
+    setErrors(errs);
+  };
+
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
-      callback();
+      callback(values);
     }
   }, [errors]);
 
   return {
     handleChange,
     handleSubmit,
+    handleServerErrors,
+    setValues,
+    initialValues,
     values,
     errors,
   };

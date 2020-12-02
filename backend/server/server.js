@@ -78,7 +78,8 @@ app.post('/api/magic', userValidationRules(), validate, async (req, res) => {
     // Check if customer email is already in database
     const customer = await models.getCustomer(req.body);
 
-    let customerId = customer.rows[0].customer_id;
+    let customerId =
+      customer.rows.length > 0 ? customer.rows[0].customer_id : null;
 
     if (customerId) {
       // Customer is in database. Fetch their orders this month
@@ -90,15 +91,15 @@ app.post('/api/magic', userValidationRules(), validate, async (req, res) => {
       }, 0);
 
       if (purchasedQty + req.body.quantity > productMax) {
-        return res.status(400).json({
-          error: `Order exceeds maximum purchase quantity for this month. You have ${
+        throw new Error(
+          `Order exceeds maximum purchase quantity for this month. You have ${
             productMax - purchasedQty
-          } Magic Potion(s) available for purchase.`,
-        });
+          } Magic Potion(s) available for purchase.`
+        );
       }
     } else {
       // Customer not in database. Create new customer
-      const newCustomer = await createCustomer(req.body);
+      const newCustomer = await models.createCustomer(req.body);
       customerId = newCustomer.rows[0].customer_id;
     }
 
@@ -112,9 +113,9 @@ app.post('/api/magic', userValidationRules(), validate, async (req, res) => {
       productId
     );
 
-    res.status(201).json({ id: orderId });
+    res.status(201).json({ id: orderId, message: 'Order submitted!' });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(400).json({ errors: { message: err.message } });
   }
 });
 

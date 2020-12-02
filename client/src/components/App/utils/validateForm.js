@@ -7,39 +7,6 @@ import {
   validateEmail,
 } from './validators';
 
-// const luhnCheck = (val) => {
-//   let sum = 0;
-//   for (let i = 0; i < val.length; i += 1) {
-//     let intVal = Number(val.substr(i, 1));
-//     if (i % 2 === 0) {
-//       intVal *= 2;
-//       if (intVal > 9) {
-//         intVal = 1 + (intVal % 10);
-//       }
-//     }
-//     sum += intVal;
-//   }
-//   return sum % 10 === 0;
-// };
-
-// const validateCardNumber = (number) => {
-//   const regex = new RegExp('^[0-9]{15,16}$');
-//   if (!regex.test(number)) return false;
-
-//   return luhnCheck(number);
-// };
-
-// const validateCardExpiration = (date) => {
-//   const currentDate = new Date();
-//   const currentYear = currentDate.getFullYear();
-//   const currentMonth = currentDate.getMonth() + 1;
-//   let [month, year] = date.split('/');
-//   year = parseInt(year, 10) + 2000;
-//   month = parseInt(month, 10);
-
-//   return year < currentYear || (year === currentYear && month < currentMonth);
-// };
-
 const validateForm = (values) => {
   const errors = {};
 
