@@ -1,4 +1,11 @@
-import validate from './validators';
+import {
+  validateZipCode,
+  validateEmail,
+  validatePhoneNumber,
+  validateCardNumber,
+  validateCardExpirationFormat,
+  validateCardExpiration,
+} from './validators';
 
 const validateForm = (values) => {
   const errors = {};
@@ -27,19 +34,19 @@ const validateForm = (values) => {
 
   if (!zipCode) {
     errors.zipCode = 'Zip code is required';
-  } else if (!validate.validateZipCode(zipCode)) {
+  } else if (!validateZipCode(zipCode)) {
     errors.zipCode = 'Please enter a valid zip code';
   }
 
   if (!values.email) {
     errors.email = 'Email address is required';
-  } else if (!validate.validateEmail(values.email)) {
+  } else if (!validateEmail(values.email)) {
     errors.email = 'Please enter a valid email address';
   }
 
   if (!values.phone) {
     errors.phone = 'Phone number is required';
-  } else if (!validate.validatePhoneNumber(values.phone)) {
+  } else if (!validatePhoneNumber(values.phone)) {
     errors.phone = 'Please enter a valid 10-digit phone number';
   }
 
@@ -53,15 +60,15 @@ const validateForm = (values) => {
 
   if (!ccNum) {
     errors.ccNum = 'Credit card number is required';
-  } else if (!validate.validateCardNumber(ccNum)) {
+  } else if (!validateCardNumber(ccNum)) {
     errors.ccNum = 'Please enter a valid credit card number';
   }
 
   if (!exp) {
     errors.exp = 'Credit card expiration date is required';
-  } else if (!validate.validateCardExpirationFormat(exp)) {
+  } else if (!validateCardExpirationFormat(exp)) {
     errors.exp = 'Invalid credit card expiration date format';
-  } else if (validate.validateCardExpiration(exp)) {
+  } else if (validateCardExpiration(exp)) {
     errors.exp = 'Credit card is expired';
   }
 
