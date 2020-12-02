@@ -1,6 +1,6 @@
 # magic-potion
 
-> A fullstack application built with React, Node.JS, ExpressJS, PostGreSQL, styled with TailWindCSS, and deployed on Heroku. This application servers as the unofficial "launch page" of the magically magical Magic Potion. Fill out the form and try it for yourself!
+A fullstack application built with React, Node.JS, ExpressJS, PostGreSQL, styled with TailWindCSS, and deployed on Heroku. This application servers as the unofficial "launch page" of the magically magical Magic Potion. Fill out the form and try it for yourself!
 
 http://magic-potion-demo.herokuapp.com/
 
