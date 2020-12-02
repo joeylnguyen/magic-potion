@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const pool = require('./database');
 const { userValidationRules, validate } = require('./validator');
-const models = require('./models');
+const controllers = require('./controllers');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -26,7 +26,7 @@ app.get('/', (req, res) => res.send('Hello!'));
 // Get order
 app.get('/api/magic/:id', async (req, res) => {
   try {
-    const order = await models.getOrderById(req.params.id);
+    const order = await controllers.getOrderById(req.params.id);
 
     if (order.rowCount) {
       const {
@@ -81,14 +81,14 @@ app.post('/api/magic', userValidationRules(), validate, async (req, res) => {
 
   try {
     // Check if customer email is already in database
-    const customer = await models.getCustomer(req.body);
+    const customer = await controllers.getCustomer(req.body);
 
     let customerId =
       customer.rows.length > 0 ? customer.rows[0].customer_id : null;
 
     if (customerId) {
       // Customer is in database. Fetch their orders this month
-      const customerOrders = await models.getOrders(req.body, productId);
+      const customerOrders = await controllers.getOrders(req.body, productId);
 
       // Validate customer is not exceeding max purchases within a month
       const purchasedQty = customerOrders.rows.reduce((acc, row) => {
@@ -104,15 +104,15 @@ app.post('/api/magic', userValidationRules(), validate, async (req, res) => {
       }
     } else {
       // Customer not in database. Create new customer
-      const newCustomer = await models.createCustomer(req.body);
+      const newCustomer = await controllers.createCustomer(req.body);
       customerId = newCustomer.rows[0].customer_id;
     }
 
     // Customer is valid. Create order
-    const newOrder = await models.createOrder(req.body, customerId);
+    const newOrder = await controllers.createOrder(req.body, customerId);
     const orderId = newOrder.rows[0].order_id;
 
-    const newOrderDetails = await models.createOrderDetails(
+    const newOrderDetails = await controllers.createOrderDetails(
       req.body,
       orderId,
       productId
@@ -129,7 +129,7 @@ app.patch('/api/magic/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
-    const fulfilled = await models.fulfillOrder(id);
+    const fulfilled = await controllers.fulfillOrder(id);
 
     if (fulfilled.rowCount) {
       res.json({ message: 'resource updated successfully' });
@@ -144,7 +144,7 @@ app.patch('/api/magic/:id', async (req, res) => {
 // Delete order
 app.delete('/api/magic/:id', async (req, res) => {
   try {
-    const deleted = await models.deleteOrder(req.params.id);
+    const deleted = await controllers.deleteOrder(req.params.id);
 
     if (deleted.rowCount) {
       res.json({ message: 'resource deleted successfully' });
