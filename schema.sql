@@ -31,7 +31,7 @@ CREATE TABLE products(
   product_description VARCHAR(255) NOT NULL,
   product_price DECIMAL(12,2) NOT NULL,
   product_max INT NOT NULL,
-  product_img VARCHAR(255) NOT NULL
+  product_img VARCHAR(255)
 );
 
 CREATE TABLE order_details(
