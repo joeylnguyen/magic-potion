@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import BillingForm from '../BillingForm/BillingForm';
 import ProductInfo from '../ProductInfo/ProductInfo';
 import QuantityPicker from '../QuantityPicker/QuantityPicker';
@@ -13,7 +14,13 @@ const magicPotionData = {
 };
 
 const App = () => {
-  const submitData = () => console.log('Submitted!', values);
+  const submitData = () => {
+    console.log('Submitted!', values);
+    axios
+      .post('http://localhost:4000/api/magic', values)
+      .then((response) => console.log(response))
+      .catch((error) => console.error(error));
+  };
   const { values, handleChange, handleSubmit, errors } = useForm(submitData);
 
   return (
