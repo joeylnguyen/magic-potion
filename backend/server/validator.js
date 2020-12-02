@@ -13,11 +13,9 @@ const userValidationRules = () => {
       .if(body('email').notEmpty())
       .isEmail()
       .normalizeEmail(),
-    // TODO: Add custom check for if email already exists in DB
     body('quantity', 'Max quantity for this item is 3').custom(
       (value) => value <= 3
     ),
-    // TODO: Add custom check for if user purchased more than 3 already
     body('total').isString().notEmpty(),
     body('firstName', 'First name is required').trim().notEmpty().escape(),
     body('lastName', 'Last name is required').trim().notEmpty().escape(),
