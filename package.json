@@ -2,13 +2,13 @@
   "name": "curology-magic-potion",
   "version": "1.0.0",
   "description": "Backend server for magic potion launch site.",
-  "main": "index.js",
+  "main": "server.js",
   "engines": {
     "node": "v12.16.1",
     "npm": "6.14.4"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "start-server": "nodemon ./server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
