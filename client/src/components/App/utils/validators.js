@@ -13,14 +13,14 @@ const luhnCheck = (val) => {
   return sum % 10 === 0;
 };
 
-export const validateCardNumber = (number) => {
+const validateCardNumber = (number) => {
   const regex = new RegExp('^[0-9]{15,16}$');
   if (!regex.test(number)) return false;
 
   return luhnCheck(number);
 };
 
-export const validateCardExpiration = (date) => {
+const validateCardExpiration = (date) => {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1;
@@ -31,21 +31,30 @@ export const validateCardExpiration = (date) => {
   return year < currentYear || (year === currentYear && month < currentMonth);
 };
 
-export const validateCardExpirationFormat = (date) => {
+const validateCardExpirationFormat = (date) => {
   const regExp = /^(0[1-9]|1[0-2])\/\d{2}$/;
   return regExp.test(date);
 };
 
-export const validateZipCode = (zipCode) => {
+const validateZipCode = (zipCode) => {
   const regExp = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
   return zipCode.match(regExp);
 };
 
-export const validatePhoneNumber = (phoneNumber) => {
+const validatePhoneNumber = (phoneNumber) => {
   const regExp = /^[2-9]{1}[0-9]{9}$/;
   return regExp.test(phoneNumber);
 };
-export const validateEmail = (email) => {
+const validateEmail = (email) => {
   const regExp = /^\S+@\S+\.\S+$/;
   return regExp.test(email);
+};
+
+module.exports = {
+  validateCardExpiration,
+  validateCardExpirationFormat,
+  validateZipCode,
+  validateCardNumber,
+  validatePhoneNumber,
+  validateEmail,
 };
