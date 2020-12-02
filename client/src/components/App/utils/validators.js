@@ -50,11 +50,11 @@ const validateEmail = (email) => {
   return regExp.test(email);
 };
 
-module.exports = {
+export default {
+  validateCardNumber,
   validateCardExpiration,
   validateCardExpirationFormat,
   validateZipCode,
-  validateCardNumber,
   validatePhoneNumber,
   validateEmail,
 };
