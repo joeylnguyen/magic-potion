@@ -6,7 +6,6 @@ const pool = require('./database');
 const { userValidationRules, validate } = require('./validator');
 const models = require('./models');
 
-
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -19,7 +18,7 @@ app.use((req, res, next) => {
 });
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static)path.join(__dirname, 'client/build')
+  app.use(express.static(path.join(__dirname, 'client/build')));
 }
 
 app.get('/', (req, res) => res.send('Hello!'));
