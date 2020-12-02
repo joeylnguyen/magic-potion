@@ -9,7 +9,9 @@ http://magic-potion-demo.herokuapp.com/
 1. [Requirements](#requirements)
 1. [Getting Started](#getting-started)
 1. [Development](#development)
-1. [Run Application](#run-application)
+1. [Production](#production)
+1. [Discussion](#discussion)
+1. [Next Steps](#next-steps)
 
 ## Requirements
 
@@ -100,4 +102,13 @@ In /client directory run,
 ```sh
 npm run build
 ```
+## Discussion
+
+This section is for me to discuss all the topics.
+
+### Data Schema
+
+
+### Frontend Architecture
+
 
