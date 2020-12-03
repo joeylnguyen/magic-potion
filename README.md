@@ -183,4 +183,10 @@ Backend:
 As the app scales and the app complexity grows on the frontend, I would consider moving state management over to a solution like Redux or consider using the useReducer and useContext APIs. Also, to better handle more traffic, I would horizontally scale the application layer, implementing load balancers and caching to improve server efficiency. 
 
 
+### Next Steps
+
+ - [] Complete implementation of unit testing
+ - [] Create ContinueToCheckOut button that will move user to billing
+ - [] Extract button logic into component
+ - [] Clean and standardize tailwind classNames
 
