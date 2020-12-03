@@ -4,6 +4,12 @@ A fullstack application built with React, Node.JS, ExpressJS, PostGreSQL, styled
 
 http://magic-potion-demo.herokuapp.com/
 
+> I must mention, please DO NOT submit your actual credit card information. I do not want that on my conscience. Please use these lovely fake, yet valid test credit card numbers:
+
+> - 3566002020360505
+> - 5555555555554444
+> - 5105105105105100
+
 ## Table of Contents
 
 1. [Requirements](#requirements)
@@ -32,7 +38,6 @@ npm install
 ```
 
 Also, install client dependencies:
-
 
 ```sh
 cd /Client
