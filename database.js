@@ -16,6 +16,9 @@ const prodConfig = {
   password: process.env.PASSWORD,
   port: process.env.PORT,
   database: process.env.DATABASE,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 };
 
 const pool = new Pool(
