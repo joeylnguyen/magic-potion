@@ -1,10 +1,10 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const path = require('path');
-const pool = require('./database');
-const { userValidationRules, validate } = require('./validator');
-const controllers = require('./controllers');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const path = require("path");
+const pool = require("./database");
+const { userValidationRules, validate } = require("./validator");
+const controllers = require("./controllers");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -17,17 +17,16 @@ app.use((req, res, next) => {
   next();
 });
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
 }
 
-app.get('/', (req, res) => res.send('Hello!'));
+app.get("/", (req, res) => res.send("Hello!"));
 
 // Get order
-app.get('/api/magic/:id', async (req, res) => {
+app.get("/api/magic/:id", async (req, res) => {
   try {
     const order = await controllers.getOrderById(req.params.id);
-
     if (order.rowCount) {
       const {
         first_name,
@@ -61,7 +60,7 @@ app.get('/api/magic/:id', async (req, res) => {
       };
       return res.json(data);
     } else {
-      res.status(404).json({ error: 'resouce not found' });
+      res.status(404).json({ error: "resource not found" });
     }
   } catch (err) {
     res.json({ error: err.message });
@@ -70,16 +69,16 @@ app.get('/api/magic/:id', async (req, res) => {
 });
 
 // Post order
-app.post('/api/magic', userValidationRules(), validate, async (req, res) => {
-  // Only one product (magic potion) in db so we'll default productId and productMax to its values
-  const magicPotion = 'Magic Potion';
-  const product = await pool.query(
-    `SELECT * FROM products WHERE product_name = 'Magic Potion'`
-  );
-  const productId = product.rows[0].product_id;
-  const productMax = product.rows[0].product_max;
-
+app.post("/api/magic", userValidationRules(), validate, async (req, res) => {
   try {
+    // Only one product (magic potion) in db so we'll default productId and productMax to its values
+    const magicPotion = "Magic Potion";
+    const product = await pool.query(
+      `SELECT * FROM products WHERE product_name = 'Magic Potion'`
+    );
+    const productId = product.rows[0].product_id;
+    const productMax = product.rows[0].product_max;
+
     // Check if customer email is already in database
     const customer = await controllers.getCustomer(req.body);
 
@@ -118,23 +117,24 @@ app.post('/api/magic', userValidationRules(), validate, async (req, res) => {
       productId
     );
 
-    res.status(201).json({ id: orderId, message: 'Order submitted!' });
+    res.status(201).json({ id: orderId, message: "Order submitted!" });
   } catch (err) {
+    console.log(err);
     res.status(400).json({ errors: { message: err.message } });
   }
 });
 
 // Update order
-app.patch('/api/magic/:id', async (req, res) => {
+app.patch("/api/magic/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
     const fulfilled = await controllers.fulfillOrder(id);
 
     if (fulfilled.rowCount) {
-      res.json({ message: 'resource updated successfully' });
+      res.json({ message: "resource updated successfully" });
     } else {
-      res.status(404).json({ error: 'resouce not found' });
+      res.status(404).json({ error: "resouce not found" });
     }
   } catch (err) {
     res.json({ error: err.message });
@@ -142,22 +142,22 @@ app.patch('/api/magic/:id', async (req, res) => {
 });
 
 // Delete order
-app.delete('/api/magic/:id', async (req, res) => {
+app.delete("/api/magic/:id", async (req, res) => {
   try {
     const deleted = await controllers.deleteOrder(req.params.id);
 
     if (deleted.rowCount) {
-      res.json({ message: 'resource deleted successfully' });
+      res.json({ message: "resource deleted successfully" });
     } else {
-      res.status(404).json({ error: 'resouce not found' });
+      res.status(404).json({ error: "resouce not found" });
     }
   } catch (err) {
     res.json({ error: err.message });
   }
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build/index.html"));
 });
 
 app.listen(PORT, () => {

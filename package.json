@@ -1,5 +1,5 @@
 {
-  "name": "curology-magic-potion",
+  "name": "magic-potion",
   "version": "1.0.0",
   "description": "Backend server for magic potion launch site.",
   "main": "server.js",
